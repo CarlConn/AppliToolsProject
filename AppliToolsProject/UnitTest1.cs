@@ -4,7 +4,6 @@ using Applitools.VisualGrid;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using System;
 using System.Drawing;
 using Configuration = Applitools.Selenium.Configuration;
 using ScreenOrientation = Applitools.VisualGrid.ScreenOrientation;
@@ -69,7 +68,7 @@ namespace AppliToolsProject
             public void UFGTest()
             {
                 // Start the test by setting AUT's name, window or the page name that's being tested, viewport width and height
-                eyes.Open(driver, "Demo App - csharp ufg", "Smoke Test", new Size(800, 600));
+                eyes.Open(driver, "Demo App - csharp ufg", "Smoke Test ", new Size(800, 600));
 
                 // Navigate the browser to the "ACME" demo app. To see visual bugs after the first run, use the commented line below instead.
                 driver.Url = "https://demo.applitools.com/";
@@ -88,6 +87,34 @@ namespace AppliToolsProject
                 // End the test.
                 eyes.CloseAsync();
             }
+
+            [Test]
+            public void UFGTest2()
+            {
+                // Start the test by setting AUT's name, window or the page name that's being tested, viewport width and height
+                eyes.Open(driver, "Demo App - csharp ufg", "Smoke Test ", new Size(800, 600));
+
+                // Navigate the browser to the "ACME" demo app. To see visual bugs after the first run, use the commented line below instead.
+                driver.Url = "https://demo.applitools.com/";
+                //driver.Url = "https://demo.applitools.com/index_v2.html";
+
+                // Visual checkpoint #1 - Check the login page. using the fluent API
+                // https://applitools.com/docs/topics/sdk/the-eyes-sdk-check-fluent-api.html?Highlight=fluent%20api
+                eyes.Check(Target.Window().Fully().WithName("Login Window"));
+
+
+                // This will create a test with two test steps.
+                //driver.FindElement(By.Id("log-in")).Click();
+                driver.Url = "https://demo.applitools.com/";
+
+                // Visual checkpoint #2 - Check the app page.
+                eyes.Check(Target.Window().Fully().WithName("Log In"));
+
+                // End the test.
+                eyes.CloseAsync();
+            }
+
+
 
             [TearDown]
             public void AfrerEach()
